@@ -10,4 +10,19 @@ class LoginPage {
         this.errorMessage = page.getByText("Incorrect email or password.");
         this.DashboardText = page.locator("#crumb");
     }
+
+    //Creating Methods to Perform Login Actions
+    async enterEmail(email) {
+        await this.emailInput.fill(email);
+    }
+
+    async enterPassword (password) {
+        await this.passwordInput.fill(password);
+    }
+
+    async clickLoginButton() {
+        await this.loginButton.click();
+    }
 }
+
+module.exports = { LoginPage };
