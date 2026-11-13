@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 const { LoginPage } = require("../pages/LoginPage");
-const { loginData } = require("../test-data/loginData");
+const { loginData, invalidLoginCases } = require("../test-data/loginData");
 
 test.describe("Negative Login Test Cases", () => {
   test.beforeEach(async ({ page }) => {
@@ -15,7 +15,7 @@ test.describe("Negative Login Test Cases", () => {
     );
   });
 
-  test("Login Should fail with invalid email", async ({ page }) => {
+  test('Login Should fail with ${data.testName}', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.enterEmail(loginData.invalidEmail);
     await loginPage.enterPassword(loginData.validPassword);
@@ -28,7 +28,7 @@ test.describe("Negative Login Test Cases", () => {
     );
   });
 
-  test("Login should fail with invalid password", async ({ page }) => {
+  test('Login should fail with ${data.testName}', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.enterEmail(loginData.validEmail);
     await loginPage.enterPassword(loginData.invalidPassword);
