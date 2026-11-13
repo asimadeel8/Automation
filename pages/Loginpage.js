@@ -8,7 +8,7 @@ class LoginPage {
         this.passwordInput = page.locator("#pass");
         this.loginButton = page.locator("#lbtn");
         this.errorMessage = page.getByText("Incorrect email or password.");
-        this.DashboardText = page.locator("#crumb");
+        this.dashboardText = page.locator("#crumb");
     }
 
     //Creating Methods to Perform Login Actions
@@ -24,5 +24,4 @@ class LoginPage {
         await this.loginButton.click();
     }
 }
-
-module.exports = { LoginPage };
+const {LoginPage} = require('../pages/Loginpage');
