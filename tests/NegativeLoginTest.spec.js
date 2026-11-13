@@ -1,5 +1,6 @@
 const { test, expect } = require("@playwright/test");
-const { LoginPage } = require("../pages/Loginpage");
+const { LoginPage } = require("../pages/LoginPage");
+const { loginData } = require("../test-data/loginData");
 
 test.describe("Negative Login Test Cases", () => {
   test.beforeEach(async ({ page }) => {
@@ -16,8 +17,8 @@ test.describe("Negative Login Test Cases", () => {
 
   test("Login Should fail with invalid email", async ({ page }) => {
     const loginPage = new LoginPage(page);
-    await loginPage.enterEmail("Wrong@riphah.test");
-    await loginPage.enterPassword("Muallim@123");
+    await loginPage.enterEmail(loginData.invalidEmail);
+    await loginPage.enterPassword(loginData.validPassword);
     await loginPage.clickLoginButton();
 
     await expect(loginPage.errorMessage).toBeVisible();
@@ -29,8 +30,8 @@ test.describe("Negative Login Test Cases", () => {
 
   test("Login should fail with invalid password", async ({ page }) => {
     const loginPage = new LoginPage(page);
-    await loginPage.enterEmail("teacher@riphah.test");
-    await loginPage.enterPassword("123456");
+    await loginPage.enterEmail(loginData.validEmail);
+    await loginPage.enterPassword(loginData.invalidPassword);
     await loginPage.clickLoginButton();
 
     await expect(loginPage.errorMessage).toBeVisible();
@@ -41,7 +42,9 @@ test.describe("Negative Login Test Cases", () => {
   });
 
   test("Login should fail with empty email and password", async ({ page }) => {
-    await page.locator("#lbtn").click();
+    const loginPage = new LoginPage(page);
+
+    await loginPage.clickLoginButton();
 
     await expect(page.getByText("Enter a valid email address.")).toBeVisible();
 
