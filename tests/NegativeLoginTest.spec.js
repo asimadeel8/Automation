@@ -1,5 +1,5 @@
 const { test, expect } = require("@playwright/test");
-const { LoginPage } = require('../pages/Loginpage');
+const { LoginPage } = require("../pages/Loginpage");
 
 test.describe("Negative Login Test Cases", () => {
   test.beforeEach(async ({ page }) => {
@@ -9,37 +9,33 @@ test.describe("Negative Login Test Cases", () => {
   });
 
   test.afterEach(async ({ page }, testInfo) => {
-
     console.log(
-        `Test completed: ${testInfo.title} | Status: ${testInfo.status}`
+      `Test completed: ${testInfo.title} | Status: ${testInfo.status}`,
     );
-
-});
+  });
 
   test("Login Should fail with invalid email", async ({ page }) => {
-    await page.locator("#email").fill("Wrong@riphah.test");
-    await page.locator("#pass").fill("Muallim@123");
-    await page.locator("#lbtn").click();
+    const loginPage = new LoginPage(page);
+    await loginPage.enterEmail("Wrong@riphah.test");
+    await loginPage.enterPassword("Muallim@123");
+    await loginPage.clickLoginButton();
 
-    const errorMessage = page.getByText("Incorrect email or password.");
+    await expect(loginPage.errorMessage).toBeVisible();
 
-    await expect(errorMessage).toBeVisible();
-
-    await expect(page.locator("#crumb")).not.toContainText(
+    await expect(loginPage.dashboardText).not.toContainText(
       "Faculty / Dashboard",
     );
   });
 
   test("Login should fail with invalid password", async ({ page }) => {
-    await page.locator("#email").fill("teacher@riphah.test");
-    await page.locator("#pass").fill("123456");
-    await page.locator("#lbtn").click();
+    const loginPage = new LoginPage(page);
+    await loginPage.enterEmail("teacher@riphah.test");
+    await loginPage.enterPassword("123456");
+    await loginPage.clickLoginButton();
 
-    const errorMessage = page.getByText("Incorrect email or password.");
+    await expect(loginPage.errorMessage).toBeVisible();
 
-    await expect(errorMessage).toBeVisible();
-
-    await expect(page.locator("#crumb")).not.toContainText(
+    await expect(loginPage.dashboardText).not.toContainText(
       "Faculty / Dashboard",
     );
   });
