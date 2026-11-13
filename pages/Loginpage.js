@@ -24,4 +24,5 @@ class LoginPage {
         await this.loginButton.click();
     }
 }
-const {LoginPage} = require('../pages/Loginpage');
+
+module.exports = { LoginPage };
