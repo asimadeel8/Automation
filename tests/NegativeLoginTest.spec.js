@@ -1,4 +1,5 @@
 const { test, expect } = require("@playwright/test");
+const { LoginPage } = require('../pages/Loginpage');
 
 test.describe("Negative Login Test Cases", () => {
   test.beforeEach(async ({ page }) => {
