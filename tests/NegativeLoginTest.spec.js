@@ -15,7 +15,9 @@ test.describe("Negative Login Test Cases", () => {
     );
   });
 
-  test('Login Should fail with ${data.testName}', async ({ page }) => {
+  invalidLoginCases.forEach((data) => {
+
+  test(`Login Should fail with ${data.testName}`, async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.enterEmail(loginData.invalidEmail);
     await loginPage.enterPassword(loginData.validPassword);
@@ -28,10 +30,10 @@ test.describe("Negative Login Test Cases", () => {
     );
   });
 
-  test('Login should fail with ${data.testName}', async ({ page }) => {
+  test(`Login should fail with ${data.testName}`, async ({ page }) => {
     const loginPage = new LoginPage(page);
-    await loginPage.enterEmail(loginData.validEmail);
-    await loginPage.enterPassword(loginData.invalidPassword);
+    await loginPage.enterEmail(data.email);
+    await loginPage.enterPassword(data.password);
     await loginPage.clickLoginButton();
 
     await expect(loginPage.errorMessage).toBeVisible();
@@ -40,6 +42,7 @@ test.describe("Negative Login Test Cases", () => {
       "Faculty / Dashboard",
     );
   });
+});
 
   test("Login should fail with empty email and password", async ({ page }) => {
     const loginPage = new LoginPage(page);
