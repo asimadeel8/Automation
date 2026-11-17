@@ -35,6 +35,19 @@ class DashboardPage {
         this.paginationInfo = page.locator("#pi");
 
         this.viewButtons = page.locator("#cb button[data-v]");
+
+        this.courseDrawer = page.getByTestId("course-drawer");
+
+        this.drawerHeading = this.courseDrawer.locator("h3");
+
+        this.drawerCourseInfo = this.courseDrawer.locator("p.lead");
+
+        this.drawerDetails = this.courseDrawer.locator("p").nth(1);
+
+        this.closeDrawerButton = this.courseDrawer.getByRole("button", {
+            name : "Close",
+            exact : true
+        });
     }
 
     async clickMyCourses() {
@@ -51,8 +64,8 @@ class DashboardPage {
         });
     }
 
-    async searchCourse(courseName) {
-        await this.courseSearch.fill(courseName);
+    async viewCourse(courseCode) {
+        await this.page.locator(`button[data-v="${courseCode}"]`).click();
     }
 }
 
