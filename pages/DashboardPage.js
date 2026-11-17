@@ -50,6 +50,10 @@ class DashboardPage {
             label : department
         });
     }
+
+    async searchCourse(courseName) {
+        await this.courseSearch.fill(courseName);
+    }
 }
 
 module.exports = { DashboardPage };

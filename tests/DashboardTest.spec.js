@@ -40,4 +40,14 @@ test.describe("Dashboard Test Cases", () => {
 
     await expect(dashboardPage.courseRows).toHaveCount(5);
   });
+
+  test("Verify Course Search by Title", async ({ page }) => {
+    await dashboardPage.clickMyCourses();
+    await dashboardPage.searchCourse("Software Testing");
+    await expect(dashboardPage.courseRows).toHaveCount(1);
+
+    await expect(dashboardPage.courseRows).toContainText("CS-301");
+
+    await page.pause(5000);
+  });
 });
