@@ -32,4 +32,12 @@ test.describe("Dashboard Test Cases", () => {
       }),
     ).toBeVisible();
   });
+
+  test("Verify Courses List", async () => {
+    await dashboardPage.clickMyCourses();
+
+    await expect(dashboardPage.coursesHeading).toBeVisible();
+
+    await expect(dashboardPage.courseRows).toHaveCount(5);
+  });
 });
