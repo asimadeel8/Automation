@@ -85,4 +85,16 @@ test.describe("Dashboard Test Cases", () => {
       "Enrolled: 42 students",
     );
   });
+
+  test("Verify Course Details Sidebar Close Button", async () => {
+    await dashboardPage.clickMyCourses();
+
+    await dashboardPage.viewCourse("CS-301");
+
+    await expect(dashboardPage.courseDrawer).toBeVisible();
+
+    await dashboardPage.closeCourseDrawer();
+
+    await expect(dashboardPage.courseDrawer).toBeHidden();
+  });
 });
